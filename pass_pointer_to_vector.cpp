@@ -29,6 +29,11 @@ int main()
     // test
     for (auto& it : my_vector) cout << it << " ";
     
+    // and again
+    cout << "\n#########\n"; 
+    my_vector = o->get_vector(4);
+    for (auto& it : my_vector) cout << it << " ";
+    
     delete o;
     return 0;
 }
