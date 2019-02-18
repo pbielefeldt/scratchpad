@@ -20,11 +20,15 @@ public:
 
 int main()
 {
-    my_class o;
+    my_class* o = new my_class();
     vector<int> my_vector;
     
     // pass by reference
-    my_vector = o.get_vector(6);
+    my_vector = o->get_vector(6);
     
+    // test
     for (auto& it : my_vector) cout << it << " ";
+    
+    delete o;
+    return 0;
 }
