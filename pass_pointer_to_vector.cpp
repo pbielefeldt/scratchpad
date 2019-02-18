@@ -18,21 +18,31 @@ public:
 
 };
 
+// declare here for all to see
+// (would usually rather be in a header file)
+vector<int> my_vector;
+
+// some function working on my_vector
+void print_function()
+{
+    for (auto& it : my_vector) cout << it << " ";
+    cout << endl;
+}
+
 int main()
 {
     my_class* o = new my_class();
-    vector<int> my_vector;
     
-    // pass by reference
-    my_vector = o->get_vector(6);
-    
-    // test
-    for (auto& it : my_vector) cout << it << " ";
+    ///////////////////////
+    // pass by reference //
+    ///////////////////////
+    my_vector = o->get_vector(6);  // !
+    print_function();
     
     // and again
-    cout << "\n#########\n"; 
-    my_vector = o->get_vector(4);
-    for (auto& it : my_vector) cout << it << " ";
+    cout << "#########" << endl; 
+    my_vector = o->get_vector(4); // !
+    print_function();
     
     delete o;
     return 0;
