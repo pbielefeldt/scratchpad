@@ -26,5 +26,5 @@ int main()
     // pass by reference
     my_vector = o.get_vector(6);
     
-    cout << "size: " << my_vector.size() << endl;
+    for (auto& it : my_vector) cout << it << " ";
 }
