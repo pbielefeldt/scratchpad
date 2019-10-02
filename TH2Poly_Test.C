@@ -23,7 +23,9 @@ void TH2Poly_Test()
   
   for (UInt_t i=0; i<large_number; i++)
   {
-    my_histo->Clear();
+//    my_histo->Clear();
+//    my_histo->Reset();
+    my_histo->ClearBinContents();
     
     // just some filling
     for (UInt_t j=0; j<500; j++)
