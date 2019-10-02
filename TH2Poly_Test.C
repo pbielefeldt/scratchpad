@@ -36,4 +36,6 @@ void TH2Poly_Test()
     
   }
   
+  my_histo->Draw("colz");
+  
 }
