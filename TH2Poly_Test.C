@@ -26,7 +26,7 @@ void TH2Poly_Test()
     my_histo->Clear();
     
     // just some filling
-    for (UInt_t j=0; j<large_number; j++)
+    for (UInt_t j=0; j<500; j++)
     {
       Double_t some_x = rng->Uniform(30)-15;
       Double_t some_y = rng->Uniform(30)-15;
