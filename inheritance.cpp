@@ -20,7 +20,7 @@ private:
 	}
 	
 public:
-	virtual void print_public(int a)
+	void print_public(int a)
 	{
 		cout << __func__ << ": " << a << endl;
 	}
@@ -30,24 +30,16 @@ public:
 class MyDerivedClass : public MyBaseClass
 {
 public:
-	void lame(double b)
+	void print_double(double b)
 	{
 		int beee = int(b);
 		print_public(beee);
 	}
 	
-	// making "print_private" a virtual function lets the derived classes 
-	// override the function
 	void print_private(int a)
 	{
 		cout << "gotcha! print_private is no longer private!" << endl;
 		cout << __func__ << ": " << a << endl;
-	}
-	
-	void badass(double b)
-	{
-		int beee = int(b);
-		print_private(beee);
 	}
 };
 
@@ -59,8 +51,8 @@ int main()
 	
 	MyDerivedClass derived;
 	derived.print_public(21);
-	derived.lame(42.3);
-	derived.badass(64.999);
+	derived.print_double(42.3);
+	derived.print_private(64.999);
 
 	return 0; 	
 }
