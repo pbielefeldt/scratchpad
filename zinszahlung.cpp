@@ -42,7 +42,7 @@ vector<double> annual(vector<double>& b)
 	for (size_t m=0; m<b.size(); m++)
 	{
 		jahreskosten += b.at(m);
-		if (m%12==0)
+		if ((m+1)%12==0)
 		{
 			re.push_back(jahreskosten);
 			jahreskosten = 0;
@@ -67,6 +67,7 @@ int main()
 	zins_eff_jahr = zins_eff_jahr/percent; 
 	
 	const double zins_eff_monat = pow(1.+zins_eff_jahr, 1./12.)-1.;
+	cout << setprecision(3);
 	cout << "Der effektive monatliche Zins betraegt " << zins_eff_monat*percent << "%." << endl;
 	
 	vector<double> buch;
@@ -75,16 +76,14 @@ int main()
 	unsigned int n = 1; // alles wird besser, wenn man von eins zaehlt ;-)
 	for (auto& m : buch)
 	{
-		cout << n++ << ". Monat: Zinskosten\t" << setprecision(3) << m << fixed << endl; 
+		cout << n++ << ". Monat: Zinskosten\t" << m << fixed << endl; 
 	}
 	
 	vector<double> jahr = annual(buch);
 	n = 1; // alles wird besser, wenn man von eins zaehlt ;-)
 	for (auto& m : jahr)
 	{
-		cout << n++ << ". Jahr: Zinskosten\t" << setprecision(3) << m << fixed << endl; 
+		cout << n++ << ". Jahr: Zinskosten\t" << m << fixed << endl; 
 	}
 	return 0; 	
 }
-
-
