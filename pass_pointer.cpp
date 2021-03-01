@@ -52,12 +52,15 @@ public:
  	for (size_t i=0; i<v.size(); i++)
  	{
  		my_class* c_ptr = dynamic_cast<my_class*>(v.at(i));
+ 		cout << c_ptr->get_val() << endl;
  		
  		if (i%3 == 0)
  		{
  			set_true(*c_ptr);
  		}
  	}
+ 	
+ 	cout << "\n----\n" << endl;
  	
  	// print
  	for (auto& i : v)
