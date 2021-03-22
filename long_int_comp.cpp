@@ -16,12 +16,14 @@ int main()
 	unsigned long large  = 4294967290;
 	unsigned long larger = 4294967295;
 	
-	long int small = 43;
+	long long int small = 43;
 	
 //	if ( small > large*larger ) // → warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
-	if ( small > static_cast<int>(large*larger) )
+	if ( small > static_cast<long long int>(large*larger) )
 	{
 		cout << "small is sooooo large!" << endl;
+		cout << "small = " << small << endl;
+		cout << large << " * " << larger << " = " << static_cast<long long int>(large*larger) << endl;
 	}
 	 	
 	return 0;
