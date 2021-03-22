@@ -9,11 +9,17 @@ g++ -Wall -o fill_vector.o fill_vector.cpp
  using namespace std;
  
 template<typename T, typename A>
-void fill_the_vector(std::vector< std::vector<T,A> >& vec, double amp=1)
-{
+void fill_the_vector(std::vector< std::vector<T,A> >& vec, double start=1, double inc=1)
+{	
 	for (auto& elem : vec)
 	{
-		fill(elem.begin(), elem.end(), static_cast<T>(amp));
+//		fill(elem.begin(), elem.end(), static_cast<T>(start));
+		double x = start;
+		for (auto& i : elem)
+		{
+			i = static_cast<T>(x);
+			x += inc;
+		}
 	}
 } 
 
@@ -24,9 +30,10 @@ int main()
 	vector< vector<int> >    my_vector;
 	 	
 //	my_vector.resize(5, vector<double>(6));
-	my_vector.resize(7, vector<int>(2));
+	my_vector.resize(4, vector<int>(11));
 	
-	fill_the_vector(my_vector, 2.99988);
+	fill_the_vector(my_vector, 3.1, 0.3);
+	
 	for (const auto& it : my_vector)
 	{
 		cout << "\n" << endl;
