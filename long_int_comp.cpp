@@ -16,7 +16,7 @@ int main()
 	unsigned long large  = 4294967290;
 	unsigned long larger = 4294967295;
 	
-	int small = 43;
+	long int small = 43;
 	
 //	if ( small > large*larger ) // → warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
 	if ( small > static_cast<int>(large*larger) )
