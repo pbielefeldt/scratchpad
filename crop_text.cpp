@@ -42,43 +42,61 @@ std::string cropStringToLastNLines(const std::string &input, int n)
 
 // create a file with the last n lines of the input file, so that the total size of the file is less
 // than crop_to bytes
-void cropFileToLastNLines(const fs::path &input, const fs::path &output, int n, float crop_to)
+void cropFileToLastNLines(const fs::path &input_path, const fs::path &output_path, int n,
+                          float crop_to)
 {
-    std::cout << "cropFileToLastNLines (input=" << input.string() << ", output=" << output.string()
-              << ", n=" << n << ", crop_to=" << crop_to << ")" << std::endl;
-    std::ifstream in(input.string());
-    std::ofstream out(output.string());
+    std::ifstream input_file(input_path.string());
+    if (!input_file.is_open()) {
+        std::cerr << "Error opening input file: " << input_path << std::endl;
+        return;
+    }
+
+    std::ofstream output_file(output_path.string());
+    if (!output_file.is_open()) {
+        std::cerr << "Error opening output file: " << output_path << std::endl;
+        return;
+    }
+
+    std::cout << "cropFileToLastNLines (input=" << input_path.string()
+              << ", output=" << output_path.string() << ", n=" << n << ", crop_to=" << crop_to
+              << ")" << std::endl;
 
     std::string line;
     std::vector<std::string> lines;
 
-    std::cout << "input file size: " << fs::file_size(input) << std::endl;
-
     // Read all lines from the input file
-    while (std::getline(in, line)) {
+    while (std::getline(input_file, line)) {
         lines.push_back(line);
     }
 
     // Calculate the number of lines to write to the output file
-    int numLines = std::min(n, static_cast<int>(lines.size()));
+    int num_lines = std::min(n, static_cast<int>(lines.size()));
 
     // Calculate the starting position of the last n lines
-    int start = lines.size() - numLines;
+    int start = lines.size() - num_lines;
 
     // Write the last n lines to the output file
     for (int i = start; i < static_cast<int>(lines.size()); ++i) {
-        out << lines[i] << std::endl;
+        output_file << lines[i] << '\n';
     }
 
-    // write to file
-    in.close();
+    // Close the input and output files
+    input_file.close();
+    output_file.close();
 
     // If the output file is still too large, crop it again
-    if (out.tellp() > crop_to && numLines > 1) {
-        cropFileToLastNLines(input, output, numLines / 2, crop_to);
+    const unsigned int output_size = fs::file_size(output_path);
+    std::cout << "output_size=" << output_size << std::endl;
+
+    if (output_size > crop_to && num_lines > 3) {
+
+        // gauge the number of lines to crop to
+        const float crop_to_ratio = crop_to / static_cast<float>(output_size);
+        int crop_to_lines = static_cast<int>(crop_to_ratio * 0.95 * num_lines);
+        crop_to_lines = std::max(3, crop_to_lines);
+
+        cropFileToLastNLines(input_path, output_path, crop_to_lines, crop_to);
     }
-    out.close();
-    std::cout << "Cropped file to " << numLines << " lines." << std::endl;
 }
 
 int main()
