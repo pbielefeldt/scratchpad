@@ -44,8 +44,8 @@ std::string cropStringToLastNLines(const std::string &input, int n)
 // than crop_to bytes
 void cropFileToLastNLines(const fs::path &input, const fs::path &output, int n, float crop_to)
 {
-    std::cout << "cropFileToLastNLines ( input=" << input.string() << ", output=" << output.string()
-              << ", n=" << n << ", crop_to=" << crop_to << std::endl;
+    std::cout << "cropFileToLastNLines (input=" << input.string() << ", output=" << output.string()
+              << ", n=" << n << ", crop_to=" << crop_to << ")" << std::endl;
     std::ifstream in(input.string());
     std::ofstream out(output.string());
 
@@ -83,7 +83,6 @@ void cropFileToLastNLines(const fs::path &input, const fs::path &output, int n, 
 
 int main()
 {
-
     // test cropStringToLastNLines
     std::string input =
             "Line 1\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6\nLine 7\nLine 8\nLine 9\nLine 10";
@@ -93,16 +92,16 @@ int main()
     std::cout << cropped << std::endl;
 
     // test cropFileToLastNLines
-    fs::path input_file = "test_file.txt";
-    fs::path output_file = "test_file_cropped.txt";
-    int n = 300;
+    fs::path input_file_path = "test_file.txt";
+    fs::path output_file_path = input_file_path.parent_path()
+            / (input_file_path.stem().string() + "_cropped" + input_file_path.extension().string());
+    n = 300;
     float crop_to = 400;
 
-    cropFileToLastNLines(input_file, output_file, n, crop_to);
+    cropFileToLastNLines(input_file_path, output_file_path, n, crop_to);
 
     return 0;
 }
-
 
 /*
  * create a file called test_file.txt with the following content:
